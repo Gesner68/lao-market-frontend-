@@ -1,5 +1,5 @@
 'use client';
-import { useState, Suspense } from 'react';
+import { useState, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { ArrowLeft, CheckCircle2, QrCode, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
@@ -17,12 +17,12 @@ function CheckoutContent() {
   const [address, setAddress] = useState('');
   const [orderCode, setOrderCode] = useState('');
 
-  const handlePlaceOrder = (e: React.FormEvent) => {
+  const handlePlaceOrder = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     const generatedCode = 'LM' + Math.floor(100000 + Math.random() * 900000);
     setOrderCode(generatedCode);
     setStep('QR_PAY');
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50 p-4">
